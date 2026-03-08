@@ -1,0 +1,55 @@
+Konuşma Tanıma Ödevi Raporu
+
+1) Viterbi Çözümü
+
+Verilen HMM:
+Durumlar: e, v
+Gözlemler: High, Low
+Başlangıç olasılığı: P(e)=1.0
+
+Geçiş olasılıkları:
+P(e→e)=0.6
+P(e→v)=0.4
+P(v→e)=0.2
+P(v→v)=0.8
+
+Emisyon olasılıkları:
+P(High|e)=0.7
+P(Low|e)=0.3
+P(High|v)=0.1
+P(Low|v)=0.9
+
+Gözlem dizisi: [High, Low]
+
+Adım 1:
+delta1(e)=1.0*0.7=0.7
+delta1(v)=0
+
+Adım 2:
+delta2(e)=max(0.7*0.6, 0*0.2)*0.3=0.126
+delta2(v)=max(0.7*0.4, 0*0.8)*0.9=0.252
+
+Sonuç:
+En olası durum dizisi e→v'dir.
+
+2) Gürültünün emisyon olasılıklarına etkisi
+
+Gürültü, gözlemlerin daha belirsiz hale gelmesine neden olur.
+Bu durumda bir durumun doğru gözlemi üretme olasılığı azalabilir.
+Bu da emisyon dağılımlarını daha karışık hale getirir ve sınıflandırma başarımını düşürür.
+
+3) Neden gerçek sistemlerde daha karmaşık yöntemler kullanılır?
+
+Gerçek konuşma tanıma sistemleri çok daha fazla kelime, konuşmacı, aksan, konuşma hızı ve çevresel gürültü içerir.
+HMM ve Viterbi küçük örneklerde faydalıdır ancak büyük ve karmaşık gerçek veriler üzerinde sınırlı kalabilir.
+Bu nedenle günümüzde derin öğrenme tabanlı yöntemler daha yaygın kullanılmaktadır.
+Bu yöntemler daha güçlü temsil yeteneğine sahiptir ve gerçek dünyadaki değişkenliği daha iyi öğrenebilir.
+
+4) Program çıktısının yorumu
+
+Python kodu çalıştırıldığında [High, Low] gözlem dizisi için tahmin EV çıkmıştır.
+Ayrıca EV modeli üzerinde Viterbi çözümü yapıldığında durum dizisi [e, v] olarak bulunmuştur.
+Bu sonuç teorik hesapla uyumludur.
+
+Diğer test dizilerinde model, ilgili gözlem dizisini EV veya OKUL modellerinin log-likelihood skorlarına göre sınıflandırmıştır.
+Bu da HMM tabanlı basit bir konuşma tanıma yaklaşımının küçük ölçekte nasıl çalıştığını göstermektedir.
